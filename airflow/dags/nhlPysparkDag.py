@@ -2,6 +2,7 @@ from airflow import DAG
 from airflow.operators.bash_operator import BashOperator
 from airflow.operators.python_operator import PythonOperator
 from datetime import datetime, timedelta
+from spark import nhl_spark_job
 import os
 
 default_args = {
@@ -22,20 +23,6 @@ default_args = {
 dag = DAG('nhlPysparkDag', default_args=default_args, schedule_interval="* * * * *")
 
 
-def nhl_spark_job():
-    import pyspark
-    from os import chdir, getenv
-    from os.path import abspath
-    from pyspark.sql import SQLContext
-
-    # path = chdir(abspath(getenv("HOME") + '/code/personal/datasets/game.csv'))
-    path = abspath(getenv("HOME") + '/code/personal/datasets/game.csv')
-    sc = pyspark.SparkContext()
-
-    lines = sc.textFile(path)
-    count = lines.distinct().count()
-
-    print(count)
 
 
 spark_job = PythonOperator(
