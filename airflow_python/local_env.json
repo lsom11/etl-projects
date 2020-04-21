@@ -1,0 +1,6 @@
+ {
+  "ATHENA_RESULT_QUERY_LOCATION": "",
+  "environment": "master",
+  "athena_logs_outputh": "",
+  "datalake_bucket": ""
+}
