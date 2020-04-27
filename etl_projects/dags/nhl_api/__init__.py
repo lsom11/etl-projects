@@ -1,4 +1,4 @@
-SOURCE = "nhl_api"
+SOURCE = "nhl-api"
 RESOURCE_MAPPING = {
     "teams": {
         "path": "/teams/{id}",

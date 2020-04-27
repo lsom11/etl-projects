@@ -1,5 +1,8 @@
+import logging
+import json
+import boto3
+from botocore.exceptions import ClientError
 from etl_projects.base.spark.base_spark import BaseSparkContext
-
 
 class S3Loader:
     """
@@ -35,3 +38,13 @@ class S3Loader:
             df_writer = df_writer.option(op, val)
 
         df_writer.save(path=s3_path)
+
+
+    @staticmethod
+    def upload_file(json_data, bucket, file_name):
+        s3_resource = boto3.resource('s3')
+        s3_object = s3_resource.Object(bucket, f'{file_name}.json')
+
+        s3_object.put(
+            Body=(bytes(json.dumps(json_data).encode('UTF-8')))
+        )
