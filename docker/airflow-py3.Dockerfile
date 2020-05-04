@@ -1,4 +1,4 @@
-FROM python:3.8.1
+FROM python:3.7.7
 
 LABEL maintainer='Luc Somers'
 
@@ -35,6 +35,8 @@ COPY requirements.txt .
 RUN python3 -m pip install --upgrade pip && \
     # git config --global url.https://<GITHUB_TOKEN>:@github.com/.insteadOf https://github.com/ && \
     pip install -r requirements.txt
+
+RUN pip uninstall -y enum34
 
 COPY . .
 

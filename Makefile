@@ -14,8 +14,8 @@ kill-docker-environment:
 
 .PHONY: environment
 environment:
-	@pyenv install -s 3.8.1
-	@pyenv virtualenv 3.8.1 etl-projects
+	@pyenv install -s 3.7.7
+	@pyenv virtualenv 3.7.7 etl-projects
 	@pyenv local etl-projects
 
 .PHONY: requirements

@@ -9,7 +9,7 @@ from etl_projects.dags.nhl_api import SOURCE
 from etl_projects.base.airflow import BaseDAG
 from etl_projects.adapters.nhl_api_adapter import NHLApiClientAdapter
 from etl_projects.dags.nhl_api import RESOURCE_MAPPING, SOURCE
-# from etl_projects.loaders.s3_loader import S3Loader
+from etl_projects.loaders.s3_loader import S3Loader
 
 DAG_ID = SOURCE
 
@@ -20,24 +20,16 @@ MAIN_START_DATE = datetime(2020, 4, 27, 0, 0, 0, tzinfo=local_tz)
 MAIN_SCHEDULE_INTERVAL = "0 1 * * *"
 
 
-def upload_file(json_data, bucket, file_name):
-        s3_resource = boto3.resource('s3')
-        s3_object = s3_resource.Object(bucket, f'{file_name}.json')
-
-        s3_object.put(
-            Body=(bytes(json.dumps(json_data).encode('UTF-8')))
-        )
-
 def load_nhl_api_into_datalake():
     nhl_adapter = NHLApiClientAdapter()
-    # s3_loader = S3Loader()
+    s3_loader = S3Loader()
 
     for k, v in RESOURCE_MAPPING:
         path = v["path"]
         res = nhl_adapter._request(path=path, method="get")
         data = res.json()
-        # s3_loader.upload_file(
-        #     data, SOURCE, k)
+        s3_loader.upload_file(
+            data, SOURCE, k)
 
 
 
@@ -47,8 +39,7 @@ dag = DAG(
         "owner": BaseDAG.DEFAULT_OWNER,
         "wait_for_downstream": False,
         "depends_on_past": False,
-    },
-    start_date=MAIN_START_DATE,
+    },   start_date=MAIN_START_DATE,
     schedule_interval=MAIN_SCHEDULE_INTERVAL,
     catchup=False
 )
