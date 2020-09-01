@@ -1,10 +1,10 @@
-FROM python:3.7.7
+FROM python:3.8.1
 
 LABEL maintainer='Luc Somers'
 
 WORKDIR /etl-projects
 
-ARG AIRFLOW_VERSION=1.10.3
+ARG AIRFLOW_VERSION=1.10.12
 ENV PYTHONIOENCODING=utf-8 \
     AIRFLOW_HOME=/etl-projects/airflow_python \
     PYTHONPATH="${PYTHONPATH}:/${AIRFLOW_HOME}/config" \
