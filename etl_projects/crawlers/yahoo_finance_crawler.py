@@ -1,10 +1,13 @@
 from etl_projects.crawlers import BaseCrawler
 
-BASE_URL = 'http://finance.yahoo.com/quote'
+# BASE_URL = 'https://finance.yahoo.com/quote/'
+BASE_URL = 'https://finance.yahoo.com/quote/AAPL/financials?p=AAPL'
+SOUP_PARSE_TYPE = 'lxml'
 
 
 def build_ticker_url(ticker):
-    return f"{ticker}?p={ticker}"
+    formatted_url = f"{ticker}/financials?p={ticker}"
+    return formatted_url
 
 
 class YahooFinanceCrawler(BaseCrawler):
