@@ -15,4 +15,4 @@ selenium==3.141.0
 lxml==4.5.2
 Scrapy==2.3.0
 scrapy-selenium==0.0.7
-Twisted==20.3.0
+Twisted==22.2.0
