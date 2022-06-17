@@ -13,6 +13,6 @@ beautifulsoup4==4.9.1
 pandas==1.1.1
 selenium==3.141.0
 lxml==4.5.2
-Scrapy==2.3.0
+Scrapy==2.6.1
 scrapy-selenium==0.0.7
 Twisted==20.3.0
